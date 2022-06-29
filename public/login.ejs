@@ -8,7 +8,7 @@
     <div class="flexbox">
       <div class="log-form">
         <h2>Login to your account</h2>
-        <form class="form-login" method="GET">
+        <form id="formLogin" class="form-login">
           <input
             type="text"
             name="username"
@@ -23,26 +23,12 @@
             title="username"
             placeholder="Password"
           />
-          <button type="submit" class="btn">Login</button>
-          <!-- <a class="forgot" href="#">Forgot Username?</a> -->
+          <button id="btnLogin" type="button" class="btn">Login</button>
+          <button id="btnRegister" type="button" class="btn">Register</button>
         </form>
       </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io();
-      const formLogin = document.querySelector(".form-login");
-      const userName = document.querySelector('input[name="username"]');
-      const password = document.querySelector('input[name="password"]');
-      formLogin.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (userName.value && password.value) {
-          socket.emit("userName", userName.value);
-          userName.value = "";
-          password.value = "";
-          window.location.href = "/index";
-        }
-      });
-    </script>
+    <script src="./script.js"></script>
   </body>
 </html>
