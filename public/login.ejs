@@ -1,14 +1,22 @@
-<%- include('header') -%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EJSDemo</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
     <div class="flexbox">
-        <div class="log-form">
-            <h2>Login to your account</h2>
-            <form>
-              <input type="text" title="username" placeholder="username" />
-              <input type="password" title="username" placeholder="password" />
-              <button type="submit" class="btn">Login</button>
-              <a class="forgot" href="#">Forgot Username?</a>
-            </form>
-          </div>
+      <div class="log-form">
+        <h2>Login to your account</h2>
+        <form class="form-login" method="GET" action="./index">
+          <input type="text" name="username" value="" title="username" placeholder="Username" />
+          <input type="password" name="password" value="" title="username" placeholder="Password" />
+          <button type="submit" class="btn">Login</button>
+          <!-- <a class="forgot" href="#">Forgot Username?</a> -->
+        </form>
+      </div>
     </div>
-    
-<%- include('footer') -%>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

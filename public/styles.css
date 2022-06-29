@@ -16,7 +16,8 @@ body {
 }
 
 .flexbox {
-  background-color: #7dd8ff;
+  /* background-color: #7dd8ff; */
+  background-color: #d8f1d7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -274,7 +275,7 @@ body {
   font-family: 'open sans condensed';
   font-size: 1.35em;
   display: block;
-  background: #2a2a2a;
+  background: linear-gradient(#141e30, #243b55);
   width: 100%;
   text-transform: uppercase;
   padding: 0.75em 1em 0.75em 1.5em;

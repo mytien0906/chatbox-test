@@ -11,15 +11,25 @@ app.set("views", "./public");
 
 // Router
 app.get("/", (req, res) => {
-    res.render("login");
+    res.render("login",{userNames});
+});
+app.get("/index", (req, res) => {
+    res.render("index");
 });
 let messages = [];
+let userNames = [];
+
 // Socket
 io.on("connection", (socket) => {
+    console.log(socket.id);
   socket.emit("messages", messages);
+  socket.emit("userNames", userNames);
   socket.on("message", (msg) => {
     messages.push(msg);
     io.emit("message", msg);
+  });
+  socket.on("userName", (msg) => {
+    userNames.push(msg);
   });
 });
 

@@ -1,4 +1,10 @@
-<%- include('header'); -%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EJSDemo</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
     <div class="flexbox">
       <div class="chat-box">
         <div class="chat-box-header">
@@ -14,11 +20,11 @@
                 width="30"
                 height="30"
               />
-              <span>Other profile</span>
+              <!-- <span>Other profile</span> -->
             </div>
-            <div class="message other-message">Hello!</div>
+            <!-- <div class="message other-message">Hello!</div> -->
             <div class="profile my-profile">
-              <span>My profile</span>
+              <!-- <span>My profile</span> -->
               <img
                 src="https://images.unsplash.com/photo-1534135954997-e58fbd6dbbfc?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=02d536c38d9cfeb4f35f17fdfaa36619"
                 width="30"
@@ -48,4 +54,7 @@
         </div>
       </div>
     </div>
-<%- include('footer'); -%>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
