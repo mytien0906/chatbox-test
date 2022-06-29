@@ -21,7 +21,7 @@ let userNames = [];
 
 // Socket
 io.on("connection", (socket) => {
-    console.log(socket.id);
+  // userNames[socket.id] = name;
   socket.emit("messages", messages);
   socket.emit("userNames", userNames);
   socket.on("message", (msg) => {
@@ -30,6 +30,8 @@ io.on("connection", (socket) => {
   });
   socket.on("userName", (msg) => {
     userNames.push(msg);
+    console.log(userNames);
+    io.emit("userName", userNames);
   });
 });
 
