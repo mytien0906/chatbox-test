@@ -89,6 +89,10 @@ const inputChat = document.querySelector("#inputChat");
 const btnChat = document.querySelector("#btnChat");
 const chatBody = document.querySelector("#chat_box_body");
 const chatMessage = document.querySelector("#chat_messages");
+const userDetail = document.querySelector("#user-detail");
+const header = document.querySelector("#header");
+
+let infoUser;
 
 btnLogin?.addEventListener("click", () => {
   if (username.value && password.value) {
@@ -111,20 +115,32 @@ btnRegister?.addEventListener("click", () => {
 formChat?.addEventListener("submit", (e) => {
   e.preventDefault();
   if (inputChat.value) {
-    socket.emit("message", {
-      username: user.username,
-      message: inputChat.value,
-    });
+    if (infoUser?.id) {
+      socket.emit("private message", {
+        message: inputChat.value,
+        id: infoUser.id,
+      });
+    } else {
+      socket.emit("message", {
+        username: user.username,
+        message: inputChat.value,
+      });
+    }
     inputChat.value = "";
   }
 });
 
 socket.on("users", (users) => {
+  if (!boxStatus) {
+    return;
+  }
   boxStatus.innerHTML = "";
   users.forEach((user) => {
     boxStatus.innerHTML += `<div class="message other-message"><span class="${
       user?.online ? "online" : ""
-    }"></span>${user?.username}</div>`;
+    }"></span>
+    <a href="/user/${user?.username}">${user?.username}</a>
+    </div>`;
   });
 });
 
@@ -195,3 +211,26 @@ socket.on("messages", (data) => {
     createMessage(data[i], data[i]?.username === data[i - 1]?.username);
   }
 });
+
+socket.on("user-detail", (data) => {
+  header.innerHTML = "";
+  if (data?.username) {
+    header.innerHTML += `
+            <h1>${data.username}
+                <small class="${data?.online ? "online" : ""}">${
+      data?.online ? "Online" : "Offline"
+    }</small>
+            </h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, dicta?</p>
+    `;
+  }
+  infoUser = data;
+});
+socket.on("private message", (data) => {
+  const { message, username } = data;
+  createMessage(data, );
+});
+
+if (userDetail?.value) {
+  socket.emit("user-detail", userDetail.value);
+}

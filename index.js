@@ -21,6 +21,10 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+app.get("/user/:id", (req, res) => {
+  res.render("user", { id: req.params.id });
+});
+
 // Socket
 const users = [];
 const messages = [];
@@ -95,6 +99,21 @@ io.on("connection", (socket) => {
       message,
       next: lastMessage?.username === username,
     });
+  });
+  socket.on("user-detail", (data) => {
+    const indexUser = users.findIndex((user) => user.username === data);
+    const newUser = users[indexUser];
+    if (indexUser !== -1) {
+      delete newUser.password;
+      socket.emit("user-detail", newUser);
+    }
+  });
+  socket.on("private message",(data)=>{
+    const {message,id} = data;
+    const indexUser = users.findIndex((user) => user.id === id);
+    if(indexUser !== -1){
+      io.to(id).emit("private message",{message,username:users[indexUser].username});
+    }
   });
 });
 
